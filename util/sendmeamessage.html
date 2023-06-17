@@ -5,25 +5,35 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #4B0082; /* dark purple background color */
+            background-color: #9388A5; /* light greyish purple background color */
             color: white; /* white text color */
             padding: 20px;
         }
-        h1 {
+        h1, h2 {
             text-align: center;
         }
         form {
             max-width: 500px;
             margin: 0 auto;
         }
-        label, input, textarea {
-            display: block;
-            width: 100%;
+        .form-element {
             margin-bottom: 20px;
+        }
+        label, .form-element input {
+            display: inline-block;
+            width: auto;
+            vertical-align: middle;
+        }
+        input, textarea {
+            width: 100%;
+            margin-top: 5px;
+        }
+        textarea {
+            height: 150px; /* makes the textarea three times taller */
         }
         button {
             background-color: white;
-            color: #4B0082;
+            color: #3f3d56; /* darker color for text */
             padding: 10px 20px;
             border: none;
             cursor: pointer;
@@ -35,19 +45,46 @@
             text-align: center;
             font-style: italic;
         }
+        .github-link {
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
+    <script>
+        window.onload = function() {
+            const form = document.querySelector('form');
+            const inputs = Array.from(form.elements);
+            const button = document.querySelector('button');
+            button.disabled = true;
+            form.addEventListener('input', function() {
+                const allFilled = inputs.every(input => input.value !== '');
+                button.disabled = !allFilled;
+            });
+        }
+    </script>
 </head>
 <body>
     <h1>Send Me a Message</h1>
+    <h2>Recipient: Medina Ruiz A. I.</h2>
     <form action="https://formspree.io/f/xdovqlgo" method="POST">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email">
-        <label for="message">Message:</label>
-        <textarea id="message" name="message"></textarea>
+        <div class="form-element">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-element">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-element">
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+        </div>
         <button type="submit">Send</button>
     </form>
     <p>Thank you for your message, I will get back to you as soon as possible.</p>
+    <p>If you prefer, you can also send me an email at <a href="mailto:artitzco@proton.me">artitzco@proton.me</a>.</p>
+    <div class="github-link">
+        <a href="https://github.com/artitzco" target="_blank">Visit my GitHub Repository</a>
+    </div>
 </body>
 </html>
