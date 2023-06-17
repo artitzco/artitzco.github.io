@@ -32,14 +32,19 @@
             height: 150px; /* makes the textarea three times taller */
         }
         button {
-            background-color: white;
-            color: #3f3d56; /* darker color for text */
+            background-color: gray; /* gray color when button is disabled */
+            color: white;
             padding: 10px 20px;
             border: none;
             cursor: pointer;
+            transition: background-color 0.3s; /* transition for the hover animation */
         }
         button:hover {
             background-color: #ddd;
+        }
+        button:disabled {
+            cursor: default;
+            background-color: gray; /* maintain gray color when button is disabled */
         }
         p {
             text-align: center;
@@ -53,13 +58,17 @@
     <script>
         window.onload = function() {
             const form = document.querySelector('form');
-            const inputs = Array.from(form.elements);
+            const inputs = Array.from(form.querySelectorAll('input, textarea'));
             const button = document.querySelector('button');
-            button.disabled = true;
-            form.addEventListener('input', function() {
-                const allFilled = inputs.every(input => input.value !== '');
+
+            const checkFormInputs = () => {
+                const allFilled = inputs.every(input => input.value.trim() !== '');
                 button.disabled = !allFilled;
-            });
+                button.style.backgroundColor = allFilled ? '#3f3d56' : 'gray';
+            };
+
+            checkFormInputs();
+            form.addEventListener('input', checkFormInputs);
         }
     </script>
 </head>
