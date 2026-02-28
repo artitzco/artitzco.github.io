@@ -93,7 +93,6 @@
             border-radius: 50%;
             background: linear-gradient(135deg, #7f5af0, #2cb67d);
             padding: 4px;
-            /* Gradient border thickness */
             box-shadow: 0 12px 40px rgba(127, 90, 240, .3);
             animation: float 5s ease-in-out infinite;
         }
@@ -174,7 +173,7 @@
             box-shadow: 0 4px 12px rgba(127, 90, 240, .2);
         }
 
-        /* ── Glass Cards Grid ────────────────────────────── */
+        /* ── Grid Elements & Titles ──────────────────────── */
         .section-title {
             font-size: 1.5rem;
             font-weight: 600;
@@ -195,7 +194,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 1.5rem;
-            margin-bottom: 4rem;
+            margin-bottom: 5rem;
         }
 
         .glass-card {
@@ -213,7 +212,8 @@
             color: inherit;
         }
 
-        .glass-card:hover {
+        /* Apply hover only if the glass card is an anchor link (projects) */
+        a.glass-card:hover {
             transform: translateY(-5px);
             border-color: rgba(127, 90, 240, .25);
             box-shadow: 0 12px 40px rgba(127, 90, 240, .15), inset 0 1px 0 rgba(255, 255, 255, .08);
@@ -275,59 +275,256 @@
             transition: transform 0.3s ease;
         }
 
-        .glass-card:hover .card-footer svg {
+        a.glass-card:hover .card-footer svg {
             transform: translateX(4px);
             color: #7f5af0;
         }
 
-        /* ── Call to action ──────────────────────────────── */
-        .cta-container {
-            text-align: center;
-            margin-top: 2rem;
-            padding: 3rem;
-            background: linear-gradient(135deg, rgba(127, 90, 240, 0.1), rgba(44, 182, 125, 0.05));
-            border-radius: 24px;
-            border: 1px solid rgba(127, 90, 240, 0.2);
+        /* ── Contact Form Elements ───────────────────────── */
+        .contact-container {
+            max-width: 650px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
             position: relative;
-            overflow: hidden;
         }
 
-        .cta-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .cta-text {
+        .form-group label {
+            display: block;
+            font-size: .8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .08em;
             color: #94a1b2;
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
+            margin-bottom: .55rem;
+            transition: color .3s ease;
         }
 
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
+        .form-group:focus-within label {
+            color: #7f5af0;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: .85rem 1rem;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 12px;
+            color: #fffffe;
+            font-family: inherit;
+            font-size: .95rem;
+            outline: none;
+            transition: border-color .3s ease, box-shadow .3s ease, background .3s ease;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(148, 161, 178, .5);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #7f5af0;
+            background: rgba(127, 90, 240, .06);
+            box-shadow: 0 0 0 3px rgba(127, 90, 240, .15);
+        }
+
+        .form-group textarea {
+            min-height: 140px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1rem;
+            border: none;
             border-radius: 14px;
+            font-family: inherit;
             font-size: 1rem;
             font-weight: 600;
-            text-decoration: none;
+            cursor: pointer;
             color: #fffffe;
             background: linear-gradient(135deg, #7f5af0, #6246c9);
             box-shadow: 0 4px 20px rgba(127, 90, 240, .35);
-            transition: transform .2s ease, box-shadow .3s ease;
+            transition: transform .2s ease, box-shadow .3s ease, opacity .3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-top: .5rem;
         }
 
-        .btn-primary:hover {
+        .btn-submit::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 30%, rgba(255, 255, 255, .15) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform .5s ease;
+        }
+
+        .btn-submit:hover:not(:disabled)::before {
+            transform: translateX(100%);
+        }
+
+        .btn-submit:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(127, 90, 240, .45);
         }
 
-        .btn-primary svg {
-            width: 20px;
-            height: 20px;
+        .btn-submit:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .btn-submit:disabled {
+            opacity: .4;
+            cursor: not-allowed;
+            background: #2e2e3a;
+            box-shadow: none;
+        }
+
+        .btn-submit .btn-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-submit .btn-content svg {
+            width: 18px;
+            height: 18px;
             fill: currentColor;
+            transition: transform .3s ease;
+        }
+
+        .btn-submit:hover:not(:disabled) .btn-content svg {
+            transform: translateX(3px);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            color: #94a1b2;
+            font-size: .8rem;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .1), transparent);
+        }
+
+        .alt-contacts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .75rem;
+        }
+
+        .alt-contact-link {
+            display: flex;
+            align-items: center;
+            gap: .65rem;
+            padding: .85rem 1rem;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(255, 255, 255, .07);
+            text-decoration: none;
+            color: #fffffe;
+            font-size: .88rem;
+            font-weight: 500;
+            transition: background .3s ease, border-color .3s ease, transform .2s ease;
+        }
+
+        .alt-contact-link:hover {
+            background: rgba(255, 255, 255, .08);
+            border-color: rgba(255, 255, 255, .15);
+            transform: translateY(-2px);
+        }
+
+        .alt-contact-link .link-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .alt-contact-link .link-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: #fffffe;
+        }
+
+        .alt-contact-link.email-link .link-icon {
+            background: linear-gradient(135deg, #e44d6e, #c23152);
+        }
+
+        .alt-contact-link.github-link .link-icon {
+            background: linear-gradient(135deg, #333, #1a1a2e);
+        }
+
+        .alt-contact-link .link-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .alt-contact-link .link-label {
+            font-size: .68rem;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: #94a1b2;
+            font-weight: 400;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: .82rem;
+            color: #545b6b;
+            font-weight: 300;
+        }
+
+        .footer-note svg {
+            width: 14px;
+            height: 14px;
+            fill: #7f5af0;
+            vertical-align: -2px;
+            margin: 0 2px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(120%);
+            background: #2cb67d;
+            color: #fffffe;
+            padding: .85rem 1.5rem;
+            border-radius: 12px;
+            font-size: .9rem;
+            font-weight: 500;
+            box-shadow: 0 8px 30px rgba(44, 182, 125, .35);
+            z-index: 100;
+            opacity: 0;
+            transition: transform .4s cubic-bezier(.22, 1, .36, 1), opacity .4s ease;
+            pointer-events: none;
+        }
+
+        .toast.visible {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
         }
 
         /* ── Responsive ──────────────────────────────────── */
@@ -338,6 +535,10 @@
 
             .hero h1 {
                 font-size: 2rem;
+            }
+
+            .alt-contacts {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -351,7 +552,6 @@
         <header class="hero">
             <div class="avatar-container">
                 <div class="avatar">
-                    <!-- Default GitHub Avatar if not replaced -->
                     <img src="https://avatars.githubusercontent.com/u/96751314?v=4" alt="Artitz">
                 </div>
             </div>
@@ -362,46 +562,57 @@
                 <div class="badge">
                     <svg viewBox="0 0 24 24" width="16" height="16">
                         <path fill="#3776AB"
-                            d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.08.77-.04h3.1l.03-.02h.1l.16.03.22.08.26.13.29.18.28.23.24.28.18.33.11.38.04.41zM23.63 11.45l-.05 1.22-.16 1.04-.24.87-.32.71-.36.57-.4.44-.42.33-.42.24-.4.16-.36.1-.32.05-.24.01h-.16l-.06-.01H12.2v.83h5.27l.01 2.75.02.37-.05.34-.11.31-.17.28-.25.26-.31.23-.38.2-.44.18-.51.15-.58.12-.64.1-.71.08-.77.04h-3.1l-.03.02h-.1l-.16-.03-.22-.08-.26-.13-.29-.18-.28-.23-.24-.28-.18-.33-.11-.38-.04-.41V15.5l-.9-.2-.73-.26-.59-.3-.45-.32-.34-.34-.25-.34-.16-.33-.1-.3-.04-.26-.02-.2.01-.13V3.5l.05-.63.13-.55.21-.46.26-.38.3-.31.33-.25.35-.19.35-.14.33-.1.3-.07.26-.04.21-.02h1.61l.69-.05.59-.14.5-.22.41-.27.33-.32.27-.35.2-.36.15-.37.1-.35.07-.32.04-.27.02-.21V1.1h4.68l.21.03.28.07.32.12.35.18.36.26.36.36.35.46.32.59.28.73.21.88.14 1.05.05 1.23zm-14.73-8.8l-.02-.38-.08-.34-.14-.28-.22-.2-.28-.14-.34-.07-.38-.02-.38.02-.34.07-.28.14-.22.2-.14.28-.08.34-.02.38.02.38.08.34.14.28.22.2.28.14.34.07.38.02.38-.02.34-.07.28-.14.22-.2.14-.28.08-.34.02-.38zm10.74 18.06l.02.38.08.34.14.28.22.2.28.14.34.07.38.02.38-.02.34-.07.28-.14.22-.2.14-.28.08-.34.02-.38-.02-.38-.08-.34-.14-.28-.22-.2-.28-.14-.34-.07-.38-.02-.38.02-.34.07-.28.14-.22.2-.14.28-.08.34-.02.38z" />
+                            d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.08.77-.04h3.1l.03-.02h.1l.16.03.22.08.26.13.29.18.28.23.24.28.18.33.11.38.04.41zM23.63 11.45l-.05 1.22-.16 1.04-.24.87-.32.71-.36.57-.4.44-.42.33-.42.24-.4.16-.36.1-.32.05-.24.01h-.16l-.06-.01H12.2v.83h5.27l.01 2.75.02.37-.05.34-.11.31-.17.28-.25.26-.31.23-.38.2-.44.18-.51.15-.58.12-.64.1-.71.08-.77.04h-3.1l-.03.02h-.1l-.16-.03-.22-.08-.26-.13-.29-.18-.28-.23-.24-.28-.18-.33-.11-.38-.04-.41V15.5l-.9-.2-.73-.26-.59-.3-.45-.32-.34-.34-.25-.34-.16-.33-.1-.3-.04-.26-.02-.2.01-.13V3.5l.05-.63.13-.55.21-.46.26-.38.3-.31.33-.25.35-.19.35-.14.33-.1.3-.07.26-.04.21-.02h1.61l.69-.05.59-.14.5-.22.41-.27.33-.32.27-.35.2-.36.15-.37.1-.35.07-.32.04-.27.02-.21V1.1h4.68l.21.03.28.07.32.12.35.18.36.26.36.36.35.46.32.59.28.73.21.88.14 1.05.05 1.23zm-14.73-8.8l-.02-.38-.08-.34-.14-.28-.22-.2-.28-.14-.34-.07-.38-.02-.38.02-.34.07-.28.14-.22.2-.14.28-.08.34-.02-.38zm10.74 18.06l.02.38.08.34.14.28.22.2.28.14.34.07.38.02.38-.02.34-.07.28-.14.22-.2.14-.28.08-.34.02-.38-.02-.38-.08-.34-.14-.28-.22-.2-.28-.14-.34-.07-.38-.02-.38.02-.34.07-.28.14-.22.2-.14.28-.08.34-.02.38z" />
+                        365:
                     </svg>
-                    Python
+                    366: Python
+                    367:
                 </div>
-                <div class="badge">
-                    <svg viewBox="0 0 24 24" width="16" height="16">
+                368: <div class="badge">
+                    369: <svg viewBox="0 0 24 24" width="16" height="16">
+                        370:
                         <path fill="#276DC3"
                             d="M12 24c6.627 0 12-5.373 12-12S18.627 0 12 0 0 5.373 0 12s5.373 12 12 12zm4.187-16.486c.642 0 1.203.238 1.684.715.483.476.723 1.042.723 1.696 0 .54-.15.992-.45 1.353-.3.361-.723.631-1.267.81-.544.179-1.203.267-1.977.267h-2.1v6h-2.1v-10.84h5.487zm.332 2.41a.834.834 0 0 0-.256-.63c-.171-.176-.416-.264-.734-.264h-3.35v1.785h3.35c.318 0 .563-.087.734-.264a.833.833 0 0 0 .256-.627zm-1.01 2.378l2.972 6.05h-2.433l-2.458-5.064h-.05l-1.076.014v5.05h-2.1v-6.05h5.145z" />
+                        371:
                     </svg>
-                    R Language
-                </div>
-                <div class="badge">
-                    <svg viewBox="0 0 24 24" width="16" height="16">
+                    372: R Language
+                    373: </div>
+                374: <div class="badge">
+                    375: <svg viewBox="0 0 24 24" width="16" height="16">
+                        376:
                         <path fill="#ED8B00"
                             d="M15.485 10.155c-.244-.223-.55-.45-1.464-.53v1.86c1.17.065 1.574-.158 1.834-.346.223-.166.38-.498.484-.962-.128-.2-.365-.246-.854-.022zm-7.618 3.568c-.76.082-.962.3-.962.584 0 .332.222.695 1.488.948-1.554.437-3.486.083-3.486-1.04-.002-1.018 2.336-1.503 3.425-1.503.743 0 1.408.065 1.954.19.124.636-.615.748-2.42.822zm-3.078-4.135c1.474-.29 3.003-1.05 3.308-1.52.12-.178.188-.475.053-.574-1.297.025-2.905.74-3.566 1.15-1 .59-1.39 1.44-.09 1.44 1.258 0 2.923-.623 3.65-1.164.2-.144.37-.367.34-.48-.057-.187-.333-.186-.67.147-.947.937-2.955 1.855-4.52 1.344-1.63-.526-.85-1.742 1.39-2.3 2.155-.54 4.542.433 3.753.8-1.08.38-2.4-.234-3.645.176zm13.336.568c-.613-.197-2.316.34-3.633 1.96-1.792 2.213-.804 5.39.998 5.48.56.03.69-.16.71-.24.03-.09-.27-.14-.5-.14-1.726 0-2.486-2.61-.913-4.17 1.543-1.54 3.468-1.84 4.29-1.29.627.42.508.83.18 1.1-.383.31-1.055.4-1.486.27-.474-.15-.473-.39-.18-.46.368-.088.75-.01.892.203.02.04-.15.176-.5.176-1.332 0-1.714-1.06-1.29-1.63.493-.655 4.316-2.5 1.433-1.26zm3.338 2.28c-.378-.44-1.527-.423-1.64.045-.094.387.67.604 1.144.757-.04-.543-.523-1.218-1.564-1.26-.842-.033-1.424.363-1.684 1.396-.134.524-.034.93.308.93.18 0 .445-.16.587-.376.104-.157.062-.236-.086-.14-.236.143-.39.06-.39-.06s.385-.436 1.096-.543c.915-.14 1.632.186 1.764.186 1.258 0 .72-.34.464-.935zM7.11 17.514C3.89 17.15 1.5 16.03 1.5 14.773c0-1.286 2.45-2.428 5.755-2.778-.184 1.11.87 2.073 2.122 1.63.922 2.766 5.8 4.29 11.238 2.33 1.168.96-.34 1.708-3.327 2.053-.945-1.043-4.996-2.126-10.18.2V17.5z" />
+                        377:
                     </svg>
-                    Java
-                </div>
-                <div class="badge">
-                    <svg viewBox="0 0 24 24" width="16" height="16">
+                    378: Java
+                    379: </div>
+                380: <div class="badge">
+                    381: <svg viewBox="0 0 24 24" width="16" height="16">
+                        382:
                         <path fill="#E25A1C"
                             d="M11.996.02C4.945.02 0 1.95 0 1.95v19.467s5.11 2.563 11.996 2.563c6.887 0 12.004-2.563 12.004-2.563V1.95s-4.95-1.93-12.004-1.93zm4.5 9.06s-.68-1.776-2.613-2.67c-1.93-.895-4.476-1.033-4.476-1.033s1.28 1.488 2.375 1.983c1.096.495 2.152 1.018 2.152 1.018s-1.803-1.854-4.838-.973c-3.035.88-3.87 3.51-3.87 3.51s1.37-2.67 5.253-2.614c3.88.056 6.017 1.222 6.017 1.222zm1.613 6.643s-2.007-3.04-6.666-3.875c-4.66-.837-7.796-.104-7.796-.104s1.95-1.325 5.267-1.12c3.315.205 6.05 1.487 7.234 2.805 1.185 1.317 1.96 2.296 1.96 2.296z" />
+                        383:
                     </svg>
-                    Spark SQL
-                </div>
-                <div class="badge">
-                    <svg viewBox="0 0 24 24" width="16" height="16">
+                    384: Spark SQL
+                    385: </div>
+                386: <div class="badge">
+                    387: <svg viewBox="0 0 24 24" width="16" height="16">
+                        388:
                         <path fill="#FF6F00"
                             d="M1.016 9.38L11.964.128a.222.222 0 0 1 .19-.028L23.11 4.15a.213.213 0 0 1 .135.2v18.067a.23.23 0 0 1-.225.215h-3.824a.224.224 0 0 1-.224-.224V11.396L12.59 5.99a.223.223 0 0 0-.27 0L6.032 11.37v11.015a.224.224 0 0 1-.223.224H1.99a.23.23 0 0 1-.225-.216V9.61a.226.226 0 0 1 .056-.16v-.063l-.805-.01z" />
+                        389:
                     </svg>
-                    TensorFlow
-                </div>
+                    390: TensorFlow
+                    391: </div>
+                392:
             </div>
+            393:
         </header>
 
         <!-- Projects Section -->
         <h3 class="section-title">Open Source & Algorithms</h3>
 
         <div class="projects-grid">
-            <!-- Project 1 -->
             <a href="https://github.com/artitzco/fraping" target="_blank" rel="noopener noreferrer" class="glass-card">
                 <div class="card-header">
                     <h4 class="card-title">
@@ -414,41 +625,32 @@
                     <span class="card-tech">R Package</span>
                 </div>
                 <p class="card-desc">An R package to handle and interpret data from the Fluorescence Recovery After
-                    Photobleaching (FRAP) technique. Used in a peer-reviewed scientific publication to analyze actin
-                    polymerization.</p>
-                <div class="card-footer">
-                    <span>View on GitHub</span>
-                    <svg viewBox="0 0 24 24">
+                    Photobleaching (FRAP) technique.</p>
+                <div class="card-footer"><span>View on GitHub</span><svg viewBox="0 0 24 24">
                         <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" />
-                    </svg>
-                </div>
+                    </svg></div>
             </a>
 
-            <!-- Project 2 -->
             <a href="https://github.com/artitzco/optimitz" target="_blank" rel="noopener noreferrer" class="glass-card">
                 <div class="card-header">
                     <h4 class="card-title">
                         <svg viewBox="0 0 24 24">
                             <path
-                                d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z" />
+                                d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49-.12-.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z" />
                         </svg>
                         optimitz
                     </h4>
                     <span class="card-tech">Python / PyPI</span>
                 </div>
                 <p class="card-desc">A Python library focusing on Evolutionary Algorithms for solving complex
-                    optimization problems. Fully published and available on PyPI for integration.</p>
-                <div class="card-footer">
-                    <span>View on GitHub</span>
-                    <svg viewBox="0 0 24 24">
+                    optimization problems.</p>
+                <div class="card-footer"><span>View on GitHub</span><svg viewBox="0 0 24 24">
                         <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" />
-                    </svg>
-                </div>
+                    </svg></div>
             </a>
 
-            <!-- Project 3 -->
             <a href="https://github.com/artitzco/utilitz" target="_blank" rel="noopener noreferrer" class="glass-card">
                 <div class="card-header">
                     <h4 class="card-title">
@@ -456,22 +658,38 @@
                             <path
                                 d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
                         </svg>
-                        utilitz & openai-api
+                        utilitz
                     </h4>
                     <span class="card-tech">Python</span>
                 </div>
-                <p class="card-desc">A personal suite of Python utility tools and API wrapper integrations designed for
-                    streamlined development and interaction with Large Language Models.</p>
-                <div class="card-footer">
-                    <span>View on GitHub</span>
-                    <svg viewBox="0 0 24 24">
+                <p class="card-desc">A personal suite of Python utility tools designed for streamlined development and
+                    data processing tasks.</p>
+                <div class="card-footer"><span>View on GitHub</span><svg viewBox="0 0 24 24">
                         <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" />
-                    </svg>
-                </div>
+                    </svg></div>
             </a>
 
-            <!-- Project 4 -->
+            <a href="https://github.com/artitzco/openai-api" target="_blank" rel="noopener noreferrer"
+                class="glass-card">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
+                        </svg>
+                        openai-api
+                    </h4>
+                    <span class="card-tech">Python / LLM</span>
+                </div>
+                <p class="card-desc">API wrapper integrations and tools designed for interacting seamlessly with OpenAI
+                    LLMs within Python workflows.</p>
+                <div class="card-footer"><span>View on GitHub</span><svg viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg></div>
+            </a>
+
             <a href="https://github.com/AlbertNath/BTC-LSTM" target="_blank" rel="noopener noreferrer"
                 class="glass-card">
                 <div class="card-header">
@@ -484,31 +702,119 @@
                     <span class="card-tech">Deep Learning</span>
                 </div>
                 <p class="card-desc">Contributed to data extraction and the optimization of LSTM neural networks
-                    utilizing TensorFlow and Keras for cryptocurrency (BTC/USDT) sequential price prediction.</p>
-                <div class="card-footer">
-                    <span>View on GitHub</span>
-                    <svg viewBox="0 0 24 24">
+                    utilizing TensorFlow and Keras for cryptocurrency price prediction.</p>
+                <div class="card-footer"><span>View on GitHub</span><svg viewBox="0 0 24 24">
                         <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" />
-                    </svg>
-                </div>
+                    </svg></div>
             </a>
         </div>
 
-        <!-- Call to Action -->
-        <div class="cta-container">
-            <h3 class="cta-title">Let's work together</h3>
-            <p class="cta-text">Looking for a data scientist or have a challenging analytical problem? I'd love to hear
-                about it.</p>
-            <a href="util/contact.html" class="btn-primary">
-                Get in Touch
-                <svg viewBox="0 0 24 24">
-                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+        <!-- Integrated Contact Section -->
+        <h3 class="section-title">Let's work together</h3>
+
+        <div class="contact-container">
+            <div class="glass-card">
+                <form id="contactForm" action="https://formspree.io/f/xdovqlgo" method="POST">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" placeholder="John Doe" required autocomplete="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" required
+                            autocomplete="email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Write your message here…"
+                            required></textarea>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="btn-submit" disabled>
+                        <span class="btn-content">
+                            Send Message
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z" />
+                            </svg>
+                        </span>
+                    </button>
+                </form>
+
+                <div class="divider">or reach out directly</div>
+
+                <div class="alt-contacts">
+                    <a href="mailto:artitzco@proton.me" class="alt-contact-link email-link">
+                        <span class="link-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path
+                                    d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 2-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z" />
+                            </svg>
+                        </span>
+                        <span class="link-text">
+                            <span class="link-label">Email</span>
+                            artitzco@proton.me
+                        </span>
+                    </a>
+                    <a href="https://github.com/artitzco" target="_blank" rel="noopener noreferrer"
+                        class="alt-contact-link github-link">
+                        <span class="link-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.7-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3" />
+                            </svg>
+                        </span>
+                        <span class="link-text">
+                            <span class="link-label">GitHub</span>
+                            artitzco
+                        </span>
+                    </a>
+                </div>
+            </div>
+
+            <p class="footer-note">
+                I'll get back to you as soon as possible
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path
+                        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                 </svg>
-            </a>
+            </p>
         </div>
 
     </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">✓ Message sent successfully!</div>
+
+    <script>
+        (() => {
+            // Form interactions
+            const form = document.getElementById('contactForm');
+            const btn = document.getElementById('submitBtn');
+            const toast = document.getElementById('toast');
+            const inputs = form.querySelectorAll('input, textarea');
+
+            const checkForm = () => {
+                const allFilled = [...inputs].every(i => i.value.trim() !== '');
+                btn.disabled = !allFilled;
+            };
+
+            form.addEventListener('input', checkForm);
+            checkForm();
+
+            if (window.location.search.includes('success')) {
+                toast.classList.add('visible');
+                setTimeout(() => toast.classList.remove('visible'), 4000);
+
+                // Scroll down to the contact part so it's evident
+                setTimeout(() => {
+                    document.querySelector('.contact-container').scrollIntoView({ behavior: 'smooth' });
+                }, 500);
+            }
+        })();
+    </script>
 
 </body>
 
