@@ -1,0 +1,169 @@
+/* ── Reset & Base ── */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+    background: #12121f;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+    -webkit-touch-callout: none;
+}
+
+/* ── Layout ── */
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    height: 100vh; /* fallback */
+}
+
+#header {
+    flex-shrink: 0;
+    padding: 6px 12px;
+    text-align: center;
+    background: linear-gradient(to bottom, #1a1a2e, #12121f);
+}
+
+#header h1 {
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 3px;
+    color: #8888aa;
+}
+
+.hint {
+    font-size: 11px;
+    color: #555;
+    margin-top: 2px;
+}
+
+/* ── Piano Container ── */
+#piano {
+    flex: 1;
+    display: flex;
+    position: relative;
+    background: #1a1a2e;
+    min-height: 0; /* allow flex shrink */
+}
+
+/* ── White Keys ── */
+.key {
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    transition: background 0.06s, box-shadow 0.06s;
+}
+
+.key.white {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 10px;
+    background: linear-gradient(to bottom, #fefefe 0%, #f5f3ef 60%, #e8e5e0 100%);
+    border-left: 1px solid #c5c0ba;
+    border-bottom: 1px solid #b0aba5;
+    border-radius: 0 0 5px 5px;
+    box-shadow:
+        -1px 0 0 #d8d4d0 inset,
+        0 -2px 4px rgba(0, 0, 0, 0.06) inset,
+        0 3px 5px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+}
+
+.key.white:first-child {
+    border-left: none;
+}
+
+.key.white.active {
+    background: linear-gradient(to bottom, #d8e4f8, #c0d0e8);
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.2),
+        0 0 12px rgba(100, 160, 255, 0.2) inset;
+}
+
+/* ── Black Keys ── */
+.key.black {
+    position: absolute;
+    top: 0;
+    height: 58%;
+    z-index: 2;
+    background: linear-gradient(to bottom, #3a3a42 0%, #222228 40%, #111115 100%);
+    border: 1px solid #000;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.5),
+        0 1px 0 rgba(255, 255, 255, 0.06) inset,
+        0 -3px 4px rgba(0, 0, 0, 0.4) inset;
+}
+
+.key.black.active {
+    background: linear-gradient(to bottom, #505058, #333338);
+    box-shadow:
+        0 2px 3px rgba(0, 0, 0, 0.4),
+        0 -1px 2px rgba(0, 0, 0, 0.3) inset;
+}
+
+/* ── Labels ── */
+.key-label {
+    font-size: 10px;
+    color: #aaa;
+    pointer-events: none;
+    line-height: 1;
+}
+
+.key.white.active .key-label {
+    color: #5577aa;
+}
+
+/* ── Landscape (optimizado para celular girado) ── */
+@media (orientation: landscape) {
+    #header {
+        padding: 3px 8px;
+    }
+    #header h1 {
+        font-size: 13px;
+    }
+    .hint {
+        display: none;
+    }
+    .key.black {
+        height: 55%;
+    }
+}
+
+/* ── Portrait ── */
+@media (orientation: portrait) {
+    .key.black {
+        height: 52%;
+    }
+    .key-label {
+        font-size: 9px;
+    }
+}
+
+/* ── Pantallas pequeñas ── */
+@media (max-width: 480px) {
+    .key-label {
+        font-size: 8px;
+    }
+    #header h1 {
+        font-size: 13px;
+        letter-spacing: 2px;
+    }
+}
+
+/* ── Ocultar hint en touch ── */
+@media (hover: none) and (pointer: coarse) {
+    .hint {
+        display: none;
+    }
+}
