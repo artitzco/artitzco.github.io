@@ -35,7 +35,7 @@ html, body {
 #header h1 {
     font-size: 16px;
     font-weight: 300;
-    letter-spacing: 3px;
+    letter-spacing: 0;
     color: #8888aa;
 }
 
@@ -45,13 +45,136 @@ html, body {
     margin-top: 2px;
 }
 
-/* ── Piano Container ── */
-#piano {
-    flex: 1;
+/* ── Controls ── */
+#controls {
+    flex-shrink: 0;
     display: flex;
-    position: relative;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 8px 12px;
+    background: #171725;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+    color: #a7a7bd;
+    font-size: 12px;
+}
+
+.control-group,
+.toggle-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 28px;
+}
+
+.control-group label,
+.toggle-control span {
+    white-space: nowrap;
+}
+
+select,
+input[type="range"] {
+    accent-color: #7aa7ff;
+}
+
+select {
+    height: 28px;
+    padding: 0 8px;
+    color: #efeff7;
+    background: #24243a;
+    border: 1px solid #393956;
+    border-radius: 6px;
+}
+
+#download-app {
+    height: 28px;
+    padding: 0 10px;
+    color: #efeff7;
+    background: #2b3854;
+    border: 1px solid #48618d;
+    border-radius: 6px;
+    font: inherit;
+    cursor: pointer;
+}
+
+#download-app:active {
+    background: #35476a;
+}
+
+.toggle-control input {
+    width: 16px;
+    height: 16px;
+}
+
+.range-control input {
+    width: min(28vw, 180px);
+}
+
+#visible-keys-value {
+    min-width: 2ch;
+    color: #efeff7;
+    text-align: right;
+}
+
+/* ── Piano Container ── */
+#manuals {
+    flex: 1;
+    display: grid;
+    gap: 6px;
+    padding: 6px;
     background: #1a1a2e;
     min-height: 0; /* allow flex shrink */
+}
+
+#manuals.single {
+    grid-template-rows: 1fr;
+}
+
+#manuals.double {
+    grid-template-rows: 1fr 1fr;
+}
+
+.manual {
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr) 38px;
+    gap: 6px;
+}
+
+.manual.hidden {
+    display: none;
+}
+
+.manual-shift {
+    display: grid;
+    place-items: center;
+    min-width: 0;
+    min-height: 0;
+    color: #d8d8e8;
+    background: #24243a;
+    border: 1px solid #363650;
+    border-radius: 7px;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.manual-shift:active {
+    background: #30304a;
+}
+
+.manual-shift.shift-hidden {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.keyboard {
+    display: flex;
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
 }
 
 /* ── White Keys ── */
@@ -135,6 +258,9 @@ html, body {
     .hint {
         display: none;
     }
+    #controls {
+        padding: 5px 8px;
+    }
     .key.black {
         height: 55%;
     }
@@ -152,6 +278,23 @@ html, body {
 
 /* ── Pantallas pequeñas ── */
 @media (max-width: 480px) {
+    #controls {
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 7px 8px;
+        font-size: 11px;
+    }
+    .range-control input {
+        width: 84px;
+    }
+    .manual {
+        grid-template-columns: 32px minmax(0, 1fr) 32px;
+        gap: 4px;
+    }
+    .manual-shift {
+        font-size: 17px;
+        border-radius: 6px;
+    }
     .key-label {
         font-size: 8px;
     }

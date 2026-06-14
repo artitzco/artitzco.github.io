@@ -16,7 +16,26 @@
             <h1>🎹 Piano</h1>
             <p class="hint">Teclado: A-L teclas blancas · W,E,T,Y,U,O,P negras</p>
         </header>
-        <div id="piano" role="application" aria-label="Piano virtual"></div>
+        <section id="controls" aria-label="Controles del piano">
+            <div class="control-group">
+                <label for="manual-count">Niveles</label>
+                <select id="manual-count">
+                    <option value="1">1</option>
+                    <option value="2" selected>2</option>
+                </select>
+            </div>
+            <label class="toggle-control">
+                <input id="linked-manuals" type="checkbox" checked>
+                <span>Continuacion</span>
+            </label>
+            <div class="control-group range-control">
+                <label for="visible-keys">Teclas</label>
+                <input id="visible-keys" type="range" min="7" max="28" step="1" value="14">
+                <output id="visible-keys-value" for="visible-keys">14</output>
+            </div>
+            <button id="download-app" type="button">Descargar</button>
+        </section>
+        <main id="manuals" role="application" aria-label="Piano virtual"></main>
     </div>
     <script src="app.js"></script>
 </body>
