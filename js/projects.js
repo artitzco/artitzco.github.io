@@ -33,12 +33,5 @@ const projectsData = [
         desc: "Contributed to data extraction and the optimization of LSTM neural networks utilizing TensorFlow and Keras for cryptocurrency price prediction.",
         link: "https://github.com/AlbertNath/BTC-LSTM",
         icon: "btc-lstm"
-    },
-    {
-        title: "polimind",
-        tech: "Python / LLM",
-        desc: "Extensible AI integrations and tooling for building seamless Python workflows, starting with OpenAI and ready for additional capabilities.",
-        link: "https://github.com/artitzco/polimind",
-        icon: "polimind"
     }
 ];
